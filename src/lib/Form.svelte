@@ -13,6 +13,7 @@
     let freq = 0;
     let acertos = 0;
     let erros = 0;
+    let comentario = '';
 
 
     async function getData(event){ // using firebase v9 
@@ -37,7 +38,8 @@
             "area": area,
             "freq": freq,
             "acertos": acertos,
-            "erros": erros
+            "erros": erros,
+            "comentario": comentario
         }
         zerarCampos();
         console.log(obj);
@@ -54,6 +56,7 @@
         optionD = '';
         correta = '';
         area = '';
+        comentario = '';
     }
 
 </script>
@@ -74,16 +77,6 @@
         <p>d.&nbsp;&nbsp;</p><input class="form-control" type="text" placeholder="Digite a alternativa D" bind:value={optionD}>
         <br>
         <p>e.&nbsp;&nbsp;</p><input class="form-control" type="text" placeholder="Digite a alternativa E" bind:value={optionE}>
-        <h3>{enunc}</h3>
-        <p>{optionA}</p>
-        <br>
-        <p>{optionB}</p>
-        <br>
-        <p>{optionC}</p>
-        <br>
-        <p>{optionD}</p>
-        <br>
-        <p>{optionE}</p>
         <br>
         <br>
         <p>Área de conhecimento: &nbsp;</p>
@@ -101,6 +94,9 @@
             <option value="d">D</option>
             <option value="e">E</option>
         </select>
+        <br>
+        <br>
+        <input class="form-control" type="text" placeholder="Clique no campo para adicionar comentário ..." bind:value={comentario}>
         <br>
         <br>
         <button type="submit" on:click={sendData}>Enviar formulário </button>
