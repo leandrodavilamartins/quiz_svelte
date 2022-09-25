@@ -1,5 +1,7 @@
 <script>
     import Form from "./lib/Form.svelte";
+
+    //console.log(db);
 </script>
 
 <main>

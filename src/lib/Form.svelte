@@ -1,9 +1,22 @@
 <script>
+    import {db} from '../main.js';
+    import {collection,query, getDocs} from 'firebase/firestore';
+
     let valor = '';
     let optionA = '';
     let optionB = '';
     let optionC = '';
     let optionD = '';
+
+
+    async function sendData(event){ // using firebase v9 
+        event.preventDefault();
+        const res = await query(collection(db,'questoes')); // remember to use a query object ! 
+        const docs = await getDocs(res);
+        docs.forEach(doc => {
+            console.log(doc.data());
+        })
+    }
 
 </script>
 
@@ -40,7 +53,7 @@
         </select>
         <br>
         <br>
-        <button type="submit">Enviar formulário</button>
+        <button type="submit" on:click={sendData}>Enviar formulário </button>
     </form>
     </div>
 </main>
