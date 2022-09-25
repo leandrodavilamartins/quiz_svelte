@@ -42,7 +42,6 @@
             "erros": erros,
             "comentario": comentario
         }
-        zerarCampos();
         console.log(obj);
         const docRef = await addDoc(collection(db,'questoes'),{obj});
         console.log(docRef.id);
@@ -50,6 +49,7 @@
         if(id){
             success = true;
         }
+        zerarCampos();
     }
 
     function zerarCampos(event){
@@ -107,10 +107,12 @@
         <button type="submit" on:click={sendData}>Enviar formulário </button>
         <button class="btn-danger" on:click={zerarCampos}>Limpar Campos</button>
     </form>
+    <p></p>
+    <p></p>
     </div>
-    <div>
+    <div id="success-container">
         {#if success}
-        <p>Questão adicionada com sucesso!</p>
+        <p id="msg">Questão adicionada com sucesso!</p>
         {/if}
     </div>
 </main>
@@ -130,5 +132,14 @@
         margin: auto;
         width: 70%;
         display: inline;
+    }
+    #success-container{
+        display: flex;
+    }
+    #msg{
+        margin:auto;
+        width: 100%;
+        text-align: left;
+        color: #646cff;
     }
 </style>
