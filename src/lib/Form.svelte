@@ -54,6 +54,7 @@
         optionB = '';
         optionC = '';
         optionD = '';
+        optionE = '';
         correta = '';
         area = '';
         comentario = '';
