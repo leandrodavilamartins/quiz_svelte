@@ -14,6 +14,7 @@
     let acertos = 0;
     let erros = 0;
     let comentario = '';
+    let success = false;
 
 
     async function getData(event){ // using firebase v9 
@@ -45,10 +46,13 @@
         console.log(obj);
         const docRef = await addDoc(collection(db,'questoes'),{obj});
         console.log(docRef.id);
-        
+        let id = await docRef.id;
+        if(id){
+            success = true;
+        }
     }
 
-    function zerarCampos(){
+    function zerarCampos(event){
         enunc = '';
         optionA = '';
         optionB = '';
@@ -101,7 +105,13 @@
         <br>
         <br>
         <button type="submit" on:click={sendData}>Enviar formulário </button>
+        <button class="btn-danger" on:click={zerarCampos}>Limpar Campos</button>
     </form>
+    </div>
+    <div>
+        {#if success}
+        <p>Questão adicionada com sucesso!</p>
+        {/if}
     </div>
 </main>
 
