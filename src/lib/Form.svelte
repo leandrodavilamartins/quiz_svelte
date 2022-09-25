@@ -48,6 +48,9 @@
         let id = await docRef.id;
         if(id){
             success = true;
+            setTimeout(() => {
+                success = false;
+            },3000);
         }
         zerarCampos();
     }
@@ -107,13 +110,11 @@
         <button type="submit" on:click={sendData}>Enviar formulário </button>
         <button class="btn-danger" on:click={zerarCampos}>Limpar Campos</button>
     </form>
-    <p></p>
-    <p></p>
-    </div>
     <div id="success-container">
         {#if success}
         <p id="msg">Questão adicionada com sucesso!</p>
         {/if}
+    </div>
     </div>
 </main>
 
