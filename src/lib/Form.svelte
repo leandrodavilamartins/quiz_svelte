@@ -1,6 +1,6 @@
 <script>
     import {db} from '../main.js';
-    import {collection,query, getDocs} from 'firebase/firestore';
+    import {collection,query, getDocs, doc, addDoc} from 'firebase/firestore';
 
     let enunc = '';
     let optionA = '';
@@ -24,7 +24,7 @@
         })
     }
 
-    function sendData(event){
+    async function sendData(event){ // this function create the question object and send the data to firebase firestore 
         event.preventDefault();
         const obj = {
             "enunc": enunc,
@@ -41,6 +41,9 @@
         }
         zerarCampos();
         console.log(obj);
+        const docRef = await addDoc(collection(db,'questoes'),{obj});
+        console.log(docRef.id);
+        
     }
 
     function zerarCampos(){
