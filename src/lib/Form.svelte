@@ -2,14 +2,20 @@
     import {db} from '../main.js';
     import {collection,query, getDocs} from 'firebase/firestore';
 
-    let valor = '';
+    let enunc = '';
     let optionA = '';
     let optionB = '';
     let optionC = '';
     let optionD = '';
+    let optionE = '';
+    let correta = '';
+    let area = '';
+    let freq = 0;
+    let acertos = 0;
+    let erros = 0;
 
 
-    async function sendData(event){ // using firebase v9 
+    async function getData(event){ // using firebase v9 
         event.preventDefault();
         const res = await query(collection(db,'questoes')); // remember to use a query object ! 
         const docs = await getDocs(res);
@@ -18,12 +24,41 @@
         })
     }
 
+    function sendData(event){
+        event.preventDefault();
+        const obj = {
+            "enunc": enunc,
+            "optionA": optionA,
+            "optionB": optionB,
+            "optionC": optionC,
+            "optionD": optionD,
+            "optionE": optionE,
+            "correta": correta,
+            "area": area,
+            "freq": freq,
+            "acertos": acertos,
+            "erros": erros
+        }
+        zerarCampos();
+        console.log(obj);
+    }
+
+    function zerarCampos(){
+        enunc = '';
+        optionA = '';
+        optionB = '';
+        optionC = '';
+        optionD = '';
+        correta = '';
+        area = '';
+    }
+
 </script>
 
 <main>
     <div class="flex-container">
     <form>
-        <input class="form-control" type="text" bind:value={valor} placeholder="Enunciado da questão">
+        <input class="form-control" type="text" bind:value={enunc} placeholder="Enunciado da questão">
         <br>
         <br>
         <br>
@@ -34,7 +69,9 @@
         <p>c.&nbsp;&nbsp;</p><input class="form-control" type="text" placeholder="Digite a alternativa C" bind:value={optionC}>
         <br>
         <p>d.&nbsp;&nbsp;</p><input class="form-control" type="text" placeholder="Digite a alternativa D" bind:value={optionD}>
-        <h3>{valor}</h3>
+        <br>
+        <p>e.&nbsp;&nbsp;</p><input class="form-control" type="text" placeholder="Digite a alternativa E" bind:value={optionE}>
+        <h3>{enunc}</h3>
         <p>{optionA}</p>
         <br>
         <p>{optionB}</p>
@@ -43,13 +80,23 @@
         <br>
         <p>{optionD}</p>
         <br>
+        <p>{optionE}</p>
+        <br>
+        <br>
+        <p>Área de conhecimento: &nbsp;</p>
+        <select bind:value={area}>
+            <option value="leg">Clínica</option>
+            <option value="clin">Legislação</option>
+        </select>
+        <br>
         <br>
         <p>Alternativa correta: &nbsp;</p>
-        <select>
+        <select bind:value={correta}>
             <option value="a">A</option>
             <option value="b">B</option>
             <option value="c">C</option>
             <option value="d">D</option>
+            <option value="e">E</option>
         </select>
         <br>
         <br>
